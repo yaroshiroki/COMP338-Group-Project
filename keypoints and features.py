@@ -35,26 +35,34 @@ def tasks1To3():
     descriptors = []
     #variable for length of list ##optimisation
     lengthOfFiles = len(imgs)
-    #from each image in the path, extract keypoints and descriptors
-    for i in range(lengthOfFiles):
-        img = cv2.imread(imgs[i], cv2.IMREAD_GRAYSCALE)
-        #calculate keypoints and descriptors using pysift
-        ##UNCOMMENT NEXT 2 LINES FOR TESTING AND COMMENT OUT LINE 44
-        PYsift = cv2.SIFT_create()
-        keypoints, descriptor = PYsift.detectAndCompute(img, None)
-        ##keypoints, descriptor = pysift.computeKeypointsAndDescriptors(img)
-        for j in descriptor:
-            descriptors.append(j)
-        descriptorArray.append(descriptors)
+    print(lengthOfFiles)
+
+    def task1():
+        #from each image in the path, extract keypoints and descriptors
+        for i in range(lengthOfFiles):
+            img = cv2.imread(imgs[i], cv2.IMREAD_GRAYSCALE)
+            #calculate keypoints and descriptors using pysift
+            ##UNCOMMENT NEXT 2 LINES FOR TESTING AND COMMENT OUT LINE 44
+            PYsift = cv2.SIFT_create()
+            print(img)
+            keypoints, descriptor = PYsift.detectAndCompute(img, None)
+            ##keypoints, descriptor = pysift.computeKeypointsAndDescriptors(img)
+            for j in descriptor:
+                descriptors.append(j)
+                #print(j)
+            descriptorArray.append(descriptors)
+        return descriptorArray
+    task1()
     end = time.time()
     totalTime = end - start
     print("Time taken: ", totalTime, " seconds")
-    return descriptorArray
+    print(descriptorArray)
+    print(len(descriptorArray))
 
 #THIS WORKS BUT IT WILL TAKE 18 HOURS TO RUN
 
-end = time.time()
-totalTime = end - start
-print("Time taken: ", totalTime, " seconds")
+#end = time.time()
+#totalTime = end - start
+#print("Time taken: ", totalTime, " seconds")
 ##kmeans = KMeans(n_clusters = 800)
 ##featureExtraction()
