@@ -137,37 +137,35 @@ def task4(trainingImages, testingImages):
     correctPredictions = 0
     classification = {}
     
-    for test_key, test_val in tests.items():
-        classification[test_key] = [0, 0] # [correct, all]
-        for tst in test_val:
-            predict_start = 0
-            #print(test_key)
+    for testKey, testValue in testingImages.items():
+        classification[testKey] = [0, 0] # [correct, all]
+        for test in testValue:
+            makePrediction = 0
             minimum = 0
             key = "a" #predicted
-            for train_key, train_val in images.items():
-                for train in train_val:
-                    if(predict_start == 0):
-                        minimum = distance.euclidean(tst, train)
-                        #minimum = L1_dist(tst,train)
-                        key = train_key
-                        predict_start += 1
+            for trainKey, trainValue in trainingImages.items():
+                for train in trainValue:
+                    if(makePrediction == 0):
+                        minimum = distance.euclidean(test, train)
+                        key = trainKey
+                        makePrediction += 1
                     else:
-                        dist = distance.euclidean(tst, train)
-                        #dist = L1_dist(tst,train)
+                        dist = distance.euclidean(test, train)
                         if(dist < minimum):
                             minimum = dist
-                            key = train_key
-            
-            if(test_key == key):
+                            key = trainKey
+            if(testKey == key):
                 correctPredictions += 1
-                classification[test_key][0] += 1
+                classification[testKey][0] += 1
             numberOfTests += 1
-            classification[test_key][1] += 1
-            #print(minimum)
+            classification[testKey][1] += 1
+            print("numberOfTests",numberOfTests)
+            print("correctPredictions",correctPredictions)
+            print("classification",classification)
     return [numberOfTests, correctPredictions, classification]
 
 results = task4(trainingDictionary, testingDictionary)
-
+print(results)
 
     
 #task4(trainingDictionary, testingDictionary)
