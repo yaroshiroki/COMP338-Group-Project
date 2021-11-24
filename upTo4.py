@@ -136,6 +136,8 @@ def task4(trainingImages, testingImages):
     numberOfTests = 0
     correctPredictions = 0
     classification = {}
+    yTrue = []
+    yPred = []
     
     for testKey, testValue in testingImages.items():
         classification[testKey] = [0, 0] # [correct, all]
@@ -154,18 +156,21 @@ def task4(trainingImages, testingImages):
                         if(dist < minimum):
                             minimum = dist
                             key = trainKey
+            yTrue.append(key)
+            yPred.append(testKey)
             if(testKey == key):
                 correctPredictions += 1
                 classification[testKey][0] += 1
             numberOfTests += 1
             classification[testKey][1] += 1
-            print("numberOfTests",numberOfTests)
-            print("correctPredictions",correctPredictions)
-            print("classification",classification)
-    return [numberOfTests, correctPredictions, classification]
+            print("Number of Tests: ",numberOfTests)
+            print("Number of Correct Predictions: ",correctPredictions)
+            print("Classifications (Correct, Total Images): ",classification)
+    return [numberOfTests, correctPredictions, classification, yTrue, yPred]
 
 results = task4(trainingDictionary, testingDictionary)
-print(results)
+print(results[3])
+print(results[4])
 
     
 #task4(trainingDictionary, testingDictionary)
